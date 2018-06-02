@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+
+    <title>360&deg; イメージギャラリー</title>
+
+    <meta name="description" content="360&deg; Image Gallery - A-Frame">
+
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
+
+
+  </head>
+
+  <body>
+
+    <a-scene>
+
+      <a-assets>
+        <img id="subway" crossorigin="anonymous" src="hdri_image/20_Subway_Lights_8k.jpg"><!--1-->
+        <img id="roof" crossorigin="anonymous" src="hdri_image/Barce_Rooftop_C_8k.jpg"><!--4-->
+        <img id="ueno" crossorigin="anonymous" src="hdri_image/03-Ueno-Shrine_8k.jpg"><!--5-->
+        <img id="tokyo" crossorigin="anonymous" src="hdri_image/Tokyo_BigSight_8k.jpg"><!--11-->
+
+        <img id="door1" crossorigin="anonymous" src="img/door.png">
+        <img id="door2" crossorigin="anonymous" src="img/door.png">
+        <img id="door3" crossorigin="anonymous" src="img/door.png">
+
+
+
+
+        <!-- りんくのてんぷれ. -->
+        <script id="link" type="text/html">
+          <a-entity class="link"
+            geometry="primitive: plane; height: 1; width: 1"
+            material="shader: flat; src: ${thumb}"
+            event-set__1="_event: mousedown; scale: 1 1 1"
+            event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+            event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
+            event-set__4="_event: mouseleave; scale: 1 1 1"
+            set-image="on: click; target: #image-360; src: ${src}"></a-entity>
+        </script>
+
+      </a-assets>
+
+      <!-- 360-どのいめーじ. -->
+      <a-sky id="image-360" radius="10" src="#tokyo"></a-sky>
+
+      <!--いめーじのりんく. -->
+
+    <a-entity  id="page01"  template="src:#link"  data-src="#door1"  data-thumb="#door1" position="8.91783265309069 0.17181015873434546 -3.0381668335997176" material="opacity:0.5" rotation="0 -90 0"></a-entity>
+
+    <a-entity id="page02" template="src:#link" data-src="#door2" data-thumb="#door2"  position="-9.3 0 0" rotation="0 90 0"></a-entity>
+
+    <a-entity id="page03" template="src:#link" data-src="#door3" data-thumb="#door3" position="0 0 9.6" rotation="0 180 0"></a-entity>
+
+      <!--かめらとかーそる. -->
+      <a-entity camera look-controls>
+        <a-cursor id="cursor"
+          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+          event-set__1="_event: mouseenter; color: springgreen"
+          event-set__2="_event: mouseleave; color: black"
+          fuse="true"
+          raycaster="objects: .link"></a-cursor>
+      </a-entity>
+
+    </a-scene>
+
+    <script type="text/javascript">
+  document.getElementById("page01").addEventListener("click", function() {location.href = "page05.html";},false);
+  document.getElementById("page02").addEventListener("click", function() {location.href = "page01.html";},false);
+  document.getElementById("page03").addEventListener("click", function() {location.href = "page04.html";},false);
+
+
+    </script>
+
+  </body>
+
+</html>
