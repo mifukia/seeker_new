@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>
-        chatApp
+        seekers
     </title>
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
@@ -14,7 +14,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 
-<<<<<<< HEAD
 <body id="login">
     <form method="post" action="/game">
         <div class="form-group">
@@ -25,131 +24,6 @@
         </div>
         <button class="btn btn-primary btn-lg">ゲームスタート</button>
     </form>
-=======
-<body id="top">
-    <a-scene>
-        <a-assets>
-            <img id="subway" crossorigin="anonymous" src="/hdri_image/20_Subway_Lights_8k.jpg">
-            <!--1-->
-            <img id="GC" crossorigin="anonymous" src="/hdri_image/GCanyon_C_YumaPoint_8k.jpg">
-            <!--3-->
-            <img id="ueno" crossorigin="anonymous" src="/hdri_image/03-Ueno-Shrine_8k.jpg">
-            <!--5-->
-            <img id="tokyo" crossorigin="anonymous" src="/hdri_image/Tokyo_BigSight_8k.jpg">
-            <!--11-->
-
-
-            <!-- <a-asset-item id="tree-obj" src="/obj/model3.obj"></a-asset-item>-->
-            <a-asset-item id="tree-mtl" src="/obj/model3.mtl"></a-asset-item>
-
-
-            <img id="door1" crossorigin="anonymous" src="/img/door.png">
-            <img id="door2" crossorigin="anonymous" src="/img/door.png">
-            <img id="door3" crossorigin="anonymous" src="/img/door.png">
-
-
-
-
-            <!-- りんくのてんぷれ. -->
-            <script id="link" type="text/html">
-                <a-entity class="link" geometry="primitive: plane; height: 1; width: 1" material="shader: flat; src: ${thumb}" event-set__1="_event: mousedown; scale: 1 1 1" event-set__2="_event: mouseup; scale: 1.2 1.2 1" event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
-                    event-set__4="_event: mouseleave; scale: 1 1 1" set-image="on: click; target: #image-360; src: ${src}"></a-entity>
-            </script>
-
-        </a-assets>
-
-        <!-- 360-どのいめーじ. -->
-        <a-sky id="image-360" radius="10" src="#subway"></a-sky>
-
-        <!--いめーじのりんく. -->
-
-        <a-entity id="page01" template="src:#link" data-src="#door1" data-thumb="#door1" position="0.8013270208556865 -0.3805442640921106 -9.841972550033093" material="opacity:0.5" rotation="-1.708560180977743 -9.085071451615942 0.2731678711090058"></a-entity>
-
-        <a-entity id="page02" template="src:#link" data-src="#door2" data-thumb="#door2" position="-9.82810969065634 0 -0.281906716500433" rotation="0 90 0"></a-entity>
-
-        <a-entity id="page03" template="src:#link" data-src="#door3" data-thumb="#door3" position="1.1773105824289125 -0.13123137713576083 9.546175561189253" rotation="0 178.10388178535206 0"></a-entity>
-
-        <!--かめらとかーそる. -->
-        <a-entity camera look-controls>
-            <a-cursor id="cursor" animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150" animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500" event-set__1="_event: mouseenter; color: springgreen"
-                event-set__2="_event: mouseleave; color: black" fuse="true" raycaster="objects: .link"></a-cursor>
-        </a-entity>
-
-    </a-scene>
-
-    <script type="text/javascript">
-        document.getElementById("page01").addEventListener("click", function() {
-            location.href = "page05.html";
-        }, false);
-        document.getElementById("page02").addEventListener("click", function() {
-            location.href = "page11.html";
-        }, false);
-        document.getElementById("page03").addEventListener("click", function() {
-            location.href = "page03.html";
-        }, false);
-    </script>
-    <script>
-        const socket = io();
-        // var chatScroll = ()=> {
-        //     $('.chatArea').animate({scrollTop: $('.chatArea').get(0).scrollHeight}, '300');
-        // }
-        // //login
-        // socket.on('connect',function(){
-        //     socket.emit('login',{
-        //         name:'<%= user %>',
-        //     })
-        // });
-        // //logout
-        // $(window).on('beforeunload', function() {
-        //     socket.emit('logout',{
-        //         name:'<%= user %>',
-        //     })
-        // });
-        // $('.msgForm').submit(() => {
-        //     socket.emit('chat message', {
-        //         message :$('#m').val(),
-        //         name :'<%= user %>',
-        //         mail :'<%= mail %>'
-        //     });
-        //     $('#m').val('');
-        //     return false;
-        // });
-        // $('.invForm').submit(() => {
-        //     socket.emit('inv', {
-        //         address :$('#inv').val(),
-        //     });
-        //     $('#inv').val('');
-        //     $('.closeBtn').trigger('click');
-        //     return false;
-        // });
-        // socket.on('chat message', (data) => {
-        //     $('#messages').append(`
-        //         <li>
-        //             <p class="username">${data.username}<span class="time">${data.time}</span></p>
-        //             <p class="msg">${data.message}</p>
-        //         </li>
-        //     `);
-        //     chatScroll();
-        // });
-        // socket.on('login', (data) => {
-        //     console.log(data.name)
-        //     $('#messages').append(`
-        //         <li class="login">
-        //             <p class="msg">${data.username}が入室しました。</p>
-        //         </li>
-        //     `);
-        //     chatScroll();
-        // });
-        // socket.on('logout', (data) => {
-        //     console.log(data.name)
-        //     $('#messages').append(`
-        //         <li class="logout">
-        //             <p class="msg">${data.username}が退室しました。</p>
-        //         </li>
-        //     `);
-        // });
-    </script>
->>>>>>> 926eeadd27958c23a1e1c830186b353fed5f07c0
 </body>
 
 </html>
