@@ -91,15 +91,15 @@
             })
         });
         $('#page01').on('click',()=>{
-            location.href = "/game#page05";
+            location.href = "/game?username=<%= user %>&page=05";
             return false;
         });
         $('#page02').on('click',()=>{
-            location.href = "/game#page11";
+            location.href = "/game?username=<%= user %>&page=11";
             return false;
         });
         $('#page03').on('click',()=>{
-            location.href = "/game#page03";
+            location.href = "/game?username=<%= user %>&page=03";
             return false;
         })
         // //logout
