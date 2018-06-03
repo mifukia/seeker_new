@@ -1569,10 +1569,10 @@ blockquote:before {
 /*object*/
 /*layout*/
 /*pages*/
-#top body {
+#app body {
   font: 13px Helvetica, Arial; }
 
-#top .userData {
+#app .userData {
   position: fixed;
   top: 10px;
   left: 10px;
@@ -1580,26 +1580,26 @@ blockquote:before {
   width: 200px;
   padding: 20px; }
 
-#top #messages {
+#app #messages {
   list-style-type: none;
   margin: 0;
   padding: 0; }
 
-#top #messages li {
+#app #messages li {
   padding: 10px; }
 
-#top #messages li:nth-child(odd) {
+#app #messages li:nth-child(odd) {
   background: #eee; }
 
-#top .login {
+#app .login {
   background: #55C500 !important;
   color: #fff !important; }
 
-#top .logout {
+#app .logout {
   background: #FF8095 !important;
   color: #fff !important; }
 
-#top .chatArea {
+#app .chatArea {
   width: 20%;
   height: 40vh;
   overflow-y: auto;
@@ -1608,20 +1608,20 @@ blockquote:before {
   right: 10px;
   background: rgba(255, 255, 255, 0.5); }
   @media print, screen and (min-width: 751px) {
-    #top .chatArea {
+    #app .chatArea {
       box-sizing: content-box; } }
 
-#top .username {
+#app .username {
   font-size: 13px;
   display: block; }
 
-#top .time {
+#app .time {
   font-size: 11px;
   display: inline-block;
   vertical-align: middle;
   margin-left: 2em; }
 
-#top .msg {
+#app .msg {
   font-size: 20px;
   margin-top: 0.5em; }
 

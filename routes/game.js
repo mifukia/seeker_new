@@ -6,7 +6,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('game', {
-        user: req.query.username,
+        user: "名無し",
         mail: null
     });
 });
