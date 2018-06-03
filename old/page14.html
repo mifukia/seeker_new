@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+
+    <title>360&deg; イメージギャラリー</title>
+
+    <meta name="description" content="360&deg; Image Gallery - A-Frame">
+
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
+
+
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="last" crossorigin="anonymous" src="hdri_image/Malibu_Overlook_8k.jpg"><!--14-->
+
+        <img id="door1" crossorigin="anonymous" src="img/door.png">
+        <img id="door2" crossorigin="anonymous" src="img/door.png">
+        <img id="door3" crossorigin="anonymous" src="img/door.png">
+
+        <!-- りんくのてんぷれ. -->
+        <script id="link" type="text/html">
+          <a-entity class="link"
+            geometry="primitive: plane; height: 1; width: 1"
+            material="shader: flat; src: ${thumb}"
+            event-set__1="_event: mousedown; scale: 1 1 1"
+            event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+            event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
+            event-set__4="_event: mouseleave; scale: 1 1 1"
+            set-image="on: click; target: #image-360; src: ${src}"></a-entity>
+        </script>
+      </a-assets>
+
+      <!-- 360-どのいめーじ. -->
+      <a-sky id="image-360" radius="10" src="#last"></a-sky>
+
+      <!--いめーじのりんく. -->
+
+    <a-obj-model id="gole"  class="link" template="src:#link"
+      src="obj/model3.obj"
+      mtl="obj/model3.mtl"
+    position="-1.1026257326073614 -7.289398567811949 -6.262852532064665" rotation="0 9.678 0" scale="3 3 3">
+
+    <a-animation
+      attribute="rotation"
+      repeat="indefinite"
+      direction="alternate"
+      dur="500"
+      from="0 0 0" to="0 10 0"></a-animation>
+</a-obj-model>
+
+<a-obj-model template="src:#link"
+  src="obj/kani.obj"
+  mtl="obj/kani.mtl"
+position="-9.09253610807925 -1.8614387491459161 -2.043083246782966" rotation="0 75.5603336286803 0" scale="0.5 0.5 1">
+
+<a-animation
+  attribute="rotation"
+  repeat="indefinite"
+  direction="alternate"
+  dur="500"
+  from="0 0 0" to="0 10 0"></a-animation>
+</a-obj-model>
+
+
+
+
+
+
+      <!--かめらとかーそる. -->
+      <a-entity camera look-controls>
+        <a-cursor id="cursor"
+          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+          event-set__1="_event: mouseenter; color: springgreen"
+          event-set__2="_event: mouseleave; color: black"
+          fuse="true"
+          raycaster="objects: .link"></a-cursor>
+      </a-entity>
+
+    </a-scene>
+
+    <script type="text/javascript">
+
+  document.getElementById("gole").addEventListener("click", function() {
+document.getElementById("hoge").style.display="block";
+  //  location.href = "gole.html";
+
+  },false);
+
+
+    </script>
+
+  </body>
+
+</html>
