@@ -4,7 +4,6 @@ var sendmail = require('sendmail')();
 
 function sio(server) {
     var io = require('socket.io')(server);
-
     //接続
     io.on('connection', (socket) => {
         socket.on('login', (data) => {

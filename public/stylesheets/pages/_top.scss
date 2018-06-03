@@ -4,34 +4,13 @@ body {
     font: 13px Helvetica, Arial;
 }
 
-.msgForm {
-    background: #888;
-    padding: 10px;
+.userData{
     position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-}
-
-
-.msgForm input {
-    border: 0;
-    padding: 1em;
-    width: 80%;
+    top:10px;
+    left:10px;
     background: #fff;
-    border-radius: .3rem;
-    font-size: 16px;
-    @include sp{
-        width: 70%;
-    };
-}
-
-.msgForm button {
-    width: 15%;
-    @include sp{
-        width: 25%;
-    };
+    width: 200px;
+    padding: 20px;
 }
 
 #messages {
@@ -56,10 +35,13 @@ body {
     color: #fff !important;
 }
 .chatArea{
-    height: calc(100vh - 128px);
-    padding-top: 55px;
-    padding-bottom: 73px;
+    width: 20%;
+    height: 40vh;
     overflow-y: auto;
+    position: fixed;
+    top:10px;
+    right:10px;
+    background:rgba(255,255,255,0.5);
     @include pc{
         box-sizing: content-box;
     }
@@ -77,23 +59,4 @@ body {
 .msg{
     font-size: 20px;
     margin-top: 0.5em;
-}
-header{
-    position: fixed;
-    top:0;
-    left:0;
-    width: 100%;
-    background: #888;
-    padding: 10px;
-    display: flex;
-    justify-content: flex-end;
-    z-index: 99;
-}
-.invBtn{
-    margin-left: 10px;
-}
-.logoutBtn{
-    a{
-        color: #fff;
-    }
 }
