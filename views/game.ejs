@@ -16,7 +16,6 @@
     <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="/javascript/client.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 
@@ -42,8 +41,8 @@
                 <img id="LA" crossorigin="anonymous" src="hdri_image/LA_Downtown_Helipad_GoldenHour_8k.jpg"><!--13-->
                 <img id="last" crossorigin="anonymous" src="hdri_image/Malibu_Overlook_8k.jpg"><!--14-->
 
-                <!-- <a-asset-item id="tree-obj" src="/obj/model3.obj"></a-asset-item>-->
-                <a-asset-item id="tree-mtl" src="/obj/model3.mtl"></a-asset-item>
+                <a-asset-item id="pengin-obj" src="/obj/model3.obj"></a-asset-item>
+                <a-asset-item id="pengin-mtl" src="/obj/model3.mtl"></a-asset-item>
 
                 <img id="door1" crossorigin="anonymous" src="/img/door.png">
                 <img id="door2" crossorigin="anonymous" src="/img/door.png">
@@ -61,7 +60,9 @@
                 <a-cursor id="cursor" animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150" animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500" event-set__1="_event: mouseenter; color: springgreen"
                     event-set__2="_event: mouseleave; color: black" fuse="true" raycaster="objects: .link"></a-cursor>
             </a-entity>
-
+			<a-obj-model id="pengin1" class="link pengin" src="#pengin-obj" mtl="#pengin-mtl" position="-1.1026257326073614 -7.289398567811949 -6.262852532064665" rotation="0 9.678 0" scale="0 0 0">
+				<a-animation attribute="rotation" repeat="indefinite" direction="alternate" dur="500" from="0 0 0" to="0 10 0"></a-animation>
+			</a-obj-model>
             <!-- 360-どのいめーじ. -->
             <a-sky id="image-360" radius="10" src="#subway"></a-sky>
 
@@ -81,15 +82,45 @@
             <ul id="messages">
             </ul>
         </div>
+		<div class="getArea">
+			<p class="getArea__ttl">
+				つかまえたペンギン
+			</p>
+			<ul>
+				<li><img src="/img/pengin_off.png" alt="ペンギン"></li>
+				<li><img src="/img/pengin_off.png" alt="ペンギン"></li>
+				<li><img src="/img/pengin_off.png" alt="ペンギン"></li>
+			</ul>
+		</div>
+		<div class="radar">
+			<div class="wrap">
+			  <div class="boder"></div>
+			  <div class="circle circle-basic circle-puton"></div>
+			  <div class="circle circle-puton circle-infinit-1"></div>
+			  <div class="circle circle-puton circle-infinit-2"></div>
+			  <div class="circle circle-puton circle-infinit-3"></div>
+			  <div class="circle circle-puton circle-infinit-4"></div>
+			</div>
+		</div>
+		<div class="getImg">
+			<img src="/img/pengin_big.png" alt="つかまえた！！" class="animated">
+		</div>
     </div>
     <script>
-        const chatScroll = ()=> {
-            $('.chatArea').animate({scrollTop: $('.chatArea').get(0).scrollHeight}, '300');
-        }
+		const socket = io();
         let current = "page01"
+		let getNum = 0
+		let getPengin = []
+
+		//ログエリアの自動スクロール
+		const chatScroll = ()=> {
+			$('.chatArea').animate({scrollTop: $('.chatArea').get(0).scrollHeight}, '300');
+		}
 		const linkChange = (el)=>{
 			const link = 'link'+el
+			//背景を変更
 			$('#image-360').attr('src',page[links[current][link]].src);
+			//ドアのリンク先を変更
 			$('#page01').attr({
                 'position':page[links[current][link]].position1,
                 'rotation':page[links[current][link]].rotation1,
@@ -105,13 +136,27 @@
                 'rotation':page[links[current][link]].rotation3,
                 'scale':page[links[current][link]].scale3,
             })
+			//カレントを変更
 			current = links[current][link]
+
+			//カレントによってペンギンとレーダーを出し分ける
+			if(current === "page05" && getPengin.indexOf("pengin1") == -1 ){
+				$('#pengin1').attr('scale',"3 3 3")
+				$('.radar').addClass('red');
+			}else{
+				$('#pengin1').attr('scale',"0 0 0");
+				$('.radar').removeClass('red');
+			}
+
+			//sio.jsに通知する
 			socket.emit('chat message', {
 	           name :'<%= user %>',
 			   message:'がエリアを移動しました。'
 	        });
 			console.log(current);
 		}
+
+		//ドアをクリック時の処理
         $('#page01').on('click',()=>{
             linkChange(1);
         });
@@ -122,20 +167,91 @@
             linkChange(3);
         })
 
-		const socket = io();
+		//ペンギンをクリックした時の処理
+		$('.pengin').on('click',(e)=>{
+			let id = $(e.currentTarget).attr('id');
+			$('#'+id).attr('scale','0 0 0');
+			//見つけたペンギンの数を増やす
+			getNum += 1;
+			//見つけたペンギンのリストにプッシュする
+			getPengin.push(id);
+			//ペンギンリストの見つけたペンギンをonにする
+			$('.getArea img').eq(getNum - 1).attr('src','/img/pengin_on.png')
+			$('.getImg').show();
+			$('.getImg img').addClass('bounceIn');
+			setTimeout(()=>{
+				$('.getImg').hide();
+				$('.getImg img').removeClass('bounceIn');
+				$('.radar').removeClass('red');
+			},1000)
+			//sio.jsに通知する
+			socket.emit('chat message', {
+	           name :'<%= user %>',
+			   getnum : getNum,
+	        });
+		})
+
 		//login
+
+		//sio.jsに通知
 		socket.on('connect',function(){
 			socket.emit('login',{
 				name:'<%= user %>',
 			})
 		})
+		//sio.jsから受け取る
+		socket.on('login', (data) => {
+            console.log(data.name)
+            $('#messages').append(`
+                <li class="login">
+                    <p class="msg">${data.username}がゲームを開始しました。</p>
+                </li>
+            `);
+            chatScroll();
+        });
+
         //logout
+
+		//sio.jsに通知
         $(window).on('beforeunload', function() {
             socket.emit('logout',{
                 name:'<%= user %>',
             })
         });
-        // $('.msgForm').submit(() => {
+		//sio.jsから受け取る
+		socket.on('logout', (data) => {
+            console.log(data.name)
+            $('#messages').append(`
+                <li class="logout">
+                    <p class="msg">${data.username}が退室しました。</p>
+                </li>
+            `);
+        });
+
+		//ログエリアへの出力
+        socket.on('chat message', (data) => {
+			if(data.getnum !== undefined){
+				$('#messages').append(`
+	                <li>
+						<p>
+							${data.username}が${data.getnum}匹目のペンギンを捕まえました！
+						</p>
+	                </li>
+	            `);
+			}else{
+				$('#messages').append(`
+	                <li>
+						<p>
+							${data.username}${data.message}
+						</p>
+	                </li>
+	            `);
+			}
+            chatScroll();
+        });
+
+
+		// $('.msgForm').submit(() => {
         //     socket.emit('chat message', {
         //         message :$('#m').val(),
         //         name :'<%= user %>',
@@ -152,33 +268,6 @@
         //     $('.closeBtn').trigger('click');
         //     return false;
         // });
-        socket.on('chat message', (data) => {
-            $('#messages').append(`
-                <li>
-					<p>
-						${data.username}${data.message}
-					</p>
-                </li>
-            `);
-            chatScroll();
-        });
-        socket.on('login', (data) => {
-            console.log(data.name)
-            $('#messages').append(`
-                <li class="login">
-                    <p class="msg">${data.username}がゲームを開始しました。</p>
-                </li>
-            `);
-            chatScroll();
-        });
-        socket.on('logout', (data) => {
-            console.log(data.name)
-            $('#messages').append(`
-                <li class="logout">
-                    <p class="msg">${data.username}が退室しました。</p>
-                </li>
-            `);
-        });
 		const links = {
             page01:{
                 link1:"page05",

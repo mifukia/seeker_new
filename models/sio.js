@@ -22,6 +22,7 @@ function sio(server) {
             io.emit('chat message', {
                 username: data.name,
                 message: data.message,
+				getnum:data.getnum,
                 time: dateformat(new Date(), 'yyyy-mm-dd HH:MM:ss'),
             });
         });

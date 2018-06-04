@@ -62,3 +62,155 @@ body {
     vertical-align: middle;
     margin-left: 2em;
 }
+.getArea{
+	position: fixed;
+	left:10px;
+	top:10px;
+	width: 310px;
+	padding: 10px;
+	border: 5px solid #2D9EE0;
+	border-radius: 10px;
+	background: rgba(255,255,255,0.8);
+	&__ttl{
+		text-align: center;
+		font-weight: bold;
+	}
+	ul{
+		margin-top: 10px;
+		display: flex;
+		justify-content: space-around;
+		li{
+			width: 25%;
+		}
+	}
+	img{
+		width: 100%;
+	}
+}
+
+.getImg{
+	position: fixed;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	width: 400px;
+	display: none;
+	img{
+		opacity: 0;
+	}
+}
+.radar{
+	background: rgba(0,0,0,0.8);
+	position: fixed;
+	left: 10px;
+	top:145px;
+	border-radius: 10px;
+	border: 5px solid #fff;
+	&.yellow{
+		.boder{
+			animation: boder 2.5s linear 0s infinite normal none;
+		}
+		.circle{
+			background-color: yellow;
+		}
+	}
+	&.red{
+		.boder{
+			animation: boder 1s linear 0s infinite normal none;
+		}
+		.circle{
+			background-color: red;
+		}
+	}
+}
+
+.wrap {
+  width: 300px;
+  padding: 100px 0;
+  margin: 0 auto;
+  position: relative;
+}
+
+.wrap > *:last-child {
+  margin-bottom: 0;
+}
+
+.boder {
+  width: 70px;
+  height: 1px;
+  background-color: white;
+  position: absolute;
+  left: 150px;
+  top: 105px;
+  transform-origin: left center;
+  box-shadow: 0 -3px 20px 5px rgba(255,255,255,0.8);
+  animation: boder 4s linear 0s infinite normal none;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  margin: 0 auto 30px;
+  border-radius: 10px;
+  background-color: LightGreen;
+  transition: 0.5s ease;
+  box-shadow: 0 0 2px 1px rgba(255,255,255,0.5);
+}
+
+.circle-basic {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 30px;
+  transform:translateY(-10px);
+  border-radius: 30px;
+  border: none;
+  background-color: white;
+  z-index: 10;
+  animation: circle-flash 1s linear 0s infinite alternate none;
+}
+
+.circle-puton {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.circle-infinit-1 {
+  animation: circle 3s linear 0s infinite normal none;
+}
+.circle-infinit-2 {
+  animation: circle 3s linear 1s infinite normal none;
+}
+.circle-infinit-3 {
+  animation: circle 3s linear 2s infinite normal none;
+}
+.circle-infinit-4 {
+  animation: circle 3s linear 3s infinite normal none;
+}
+
+@keyframes circle {
+  0% {
+    transform: scale(0.1);
+  }
+  100% {
+    transform: scale(15);
+    opacity: 0;
+  }
+}
+@keyframes circle-flash {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes boder {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
