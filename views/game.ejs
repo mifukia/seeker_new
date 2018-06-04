@@ -16,7 +16,7 @@
     <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="/javascript/client.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 
@@ -83,20 +83,103 @@
         </div>
     </div>
     <script>
-        const socket = io();
         const chatScroll = ()=> {
             $('.chatArea').animate({scrollTop: $('.chatArea').get(0).scrollHeight}, '300');
         }
-        //login
-        socket.on('connect',function(){
-            socket.emit('login',{
+        let current = "page01"
+		const linkChange = (el)=>{
+			const link = 'link'+el
+			$('#image-360').attr('src',page[links[current][link]].src);
+			$('#page01').attr({
+                'position':page[links[current][link]].position1,
+                'rotation':page[links[current][link]].rotation1,
+                'scale':page[links[current][link]].scale1,
+            })
+			$('#page02').attr({
+                'position':page[links[current][link]].position2,
+                'rotation':page[links[current][link]].rotation2,
+                'scale':page[links[current][link]].scale2,
+            })
+			$('#page03').attr({
+                'position':page[links[current][link]].position3,
+                'rotation':page[links[current][link]].rotation3,
+                'scale':page[links[current][link]].scale3,
+            })
+			current = links[current][link]
+			socket.emit('chat message', {
+	           name :'<%= user %>',
+			   message:'がエリアを移動しました。'
+	        });
+			console.log(current);
+		}
+        $('#page01').on('click',()=>{
+            linkChange(1);
+        });
+        $('#page02').on('click',()=>{
+            linkChange(2);
+        });
+        $('#page03').on('click',()=>{
+            linkChange(3);
+        })
+
+		const socket = io();
+		//login
+		socket.on('connect',function(){
+			socket.emit('login',{
+				name:'<%= user %>',
+			})
+		})
+        //logout
+        $(window).on('beforeunload', function() {
+            socket.emit('logout',{
                 name:'<%= user %>',
             })
-        })
-        
-
-        let current = "page01"
-        const links = {
+        });
+        // $('.msgForm').submit(() => {
+        //     socket.emit('chat message', {
+        //         message :$('#m').val(),
+        //         name :'<%= user %>',
+        //         mail :'<%= mail %>'
+        //     });
+        //     $('#m').val('');
+        //     return false;
+        // });
+        // $('.invForm').submit(() => {
+        //     socket.emit('inv', {
+        //         address :$('#inv').val(),
+        //     });
+        //     $('#inv').val('');
+        //     $('.closeBtn').trigger('click');
+        //     return false;
+        // });
+        socket.on('chat message', (data) => {
+            $('#messages').append(`
+                <li>
+					<p>
+						${data.username}${data.message}
+					</p>
+                </li>
+            `);
+            chatScroll();
+        });
+        socket.on('login', (data) => {
+            console.log(data.name)
+            $('#messages').append(`
+                <li class="login">
+                    <p class="msg">${data.username}がゲームを開始しました。</p>
+                </li>
+            `);
+            chatScroll();
+        });
+        socket.on('logout', (data) => {
+            console.log(data.name)
+            $('#messages').append(`
+                <li class="logout">
+                    <p class="msg">${data.username}が退室しました。</p>
+                </li>
+            `);
+        });
+		const links = {
             page01:{
                 link1:"page05",
                 link2:"page11",
@@ -180,7 +263,7 @@
                 scale1:"1 1 1",
                 scale2:"1 1 1",
                 scale3:"1 1 1"
-                
+
             },
             page02:{
                 src:"#apt",
@@ -339,85 +422,6 @@
                 scale3:"1 1 1"
             },
         }
-        $('#page01').on('click',()=>{
-            $('#image-360').attr('src',page[links[current].link1].src);
-            $('#page01').attr({
-                'position':page[links[current].link1].position1,
-                'rotation':page[links[current].link1].rotation1,
-                'scale':page[links[current].link1].scale1,
-            })
-            current = links[current].link1
-            console.log(current);
-        });
-        $('#page02').on('click',()=>{
-            $('#image-360').attr('src',page[links[current].link2].src);
-            $('#page02').attr({
-                'position':page[links[current].link2].position2,
-                'rotation':page[links[current].link2].rotation2,
-                'scale':page[links[current].link2].scale2,
-            })
-            current = links[current].link2
-            console.log(current);
-        });
-        $('#page03').on('click',()=>{
-            $('#image-360').attr('src',page[links[current].link3].src);
-            $('#page03').attr({
-                'position':page[links[current].link3].position3,
-                'rotation':page[links[current].link3].rotation3,
-                'scale':page[links[current].link3].scale3,
-            })
-            current = links[current].link3
-            console.log(current);
-        })
-        // //logout
-        // $(window).on('beforeunload', function() {
-        //     socket.emit('logout',{
-        //         name:'<%= user %>',
-        //     })
-        // });
-        // $('.msgForm').submit(() => {
-        //     socket.emit('chat message', {
-        //         message :$('#m').val(),
-        //         name :'<%= user %>',
-        //         mail :'<%= mail %>'
-        //     });
-        //     $('#m').val('');
-        //     return false;
-        // });
-        // $('.invForm').submit(() => {
-        //     socket.emit('inv', {
-        //         address :$('#inv').val(),
-        //     });
-        //     $('#inv').val('');
-        //     $('.closeBtn').trigger('click');
-        //     return false;
-        // });
-        // socket.on('chat message', (data) => {
-        //     $('#messages').append(`
-        //         <li>
-        //             <p class="username">${data.username}<span class="time">${data.time}</span></p>
-        //             <p class="msg">${data.message}</p>
-        //         </li>
-        //     `);
-        //     chatScroll();
-        // });
-        // socket.on('login', (data) => {
-        //     console.log(data.name)
-        //     $('#messages').append(`
-        //         <li class="login">
-        //             <p class="msg">${data.username}が入室しました。</p>
-        //         </li>
-        //     `);
-        //     chatScroll();
-        // });
-        // socket.on('logout', (data) => {
-        //     console.log(data.name)
-        //     $('#messages').append(`
-        //         <li class="logout">
-        //             <p class="msg">${data.username}が退室しました。</p>
-        //         </li>
-        //     `);
-        // });
     </script>
 </body>
 

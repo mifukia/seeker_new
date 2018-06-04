@@ -7,10 +7,13 @@ body {
 .userData{
     position: fixed;
     top:10px;
-    left:10px;
+    right:10px;
     background: #fff;
-    width: 200px;
+    width: 20%;
     padding: 20px;
+	border-radius: 10px;
+	text-align: center;
+	font-weight: bold;
 }
 
 #messages {
@@ -20,28 +23,31 @@ body {
 }
 
 #messages li {
-    padding: 10px;
+    padding: 0.5em;
 }
 
 #messages li:nth-child(odd) {
     background: #eee;
 }
 .login{
-    background: #55C500 !important;
+    background: #4C9689 !important;
     color: #fff !important;
 }
 .logout{
-    background: #FF8095 !important;
+    background: #D72B3F !important;
     color: #fff !important;
 }
 .chatArea{
     width: 20%;
-    height: 40vh;
+    height: 60vh;
     overflow-y: auto;
     position: fixed;
-    top:10px;
+    top:75px;
     right:10px;
-    background:rgba(255,255,255,0.5);
+    background:rgba(255,255,255,0.9);
+	font-size: 12px;
+	line-height: 1.5;
+    margin-top: 0.5em;
     @include pc{
         box-sizing: content-box;
     }
@@ -55,8 +61,4 @@ body {
     display: inline-block;
     vertical-align: middle;
     margin-left: 2em;
-}
-.msg{
-    font-size: 20px;
-    margin-top: 0.5em;
 }
