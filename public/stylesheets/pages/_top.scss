@@ -17,6 +17,9 @@ body {
   @include sp{
     width: 30%;
     padding: 0.5em 0.5em;
+    @media only screen and (orientation: landscape) {
+      top:14%;
+    }
   }
 }
 
@@ -59,15 +62,17 @@ body {
         box-sizing: content-box;
     }
     @include sp{
-      top: 82vh;
       width: 90%;
       left: 5%;
       height: 15vh;
+      top:auto;
+      bottom:5%;
       @media only screen and (orientation: landscape) {
         width: 98%;
         left:1%;
         height: 20vh;
-        top:76.5vh;
+        top:auto;
+        bottom:5%;
       }
     }
 }
@@ -95,6 +100,7 @@ body {
     border: 3px solid #2D9EE0;
     @media only screen and (orientation: landscape) {
       width: 30%;
+      top:14%;
     }
   }
 	&__ttl{
@@ -140,7 +146,7 @@ body {
     transform-origin: top left;
     top:20%;
     @media only screen and (orientation: landscape) {
-      top:34%;
+      top:42%;
     }
   }
 	&.yellow{
