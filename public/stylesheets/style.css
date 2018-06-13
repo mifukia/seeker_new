@@ -4087,6 +4087,10 @@ blockquote:before {
   border-radius: 10px;
   text-align: center;
   font-weight: bold; }
+  @media print, screen and (max-width: 750px) {
+    #app .userData {
+      width: 30%;
+      padding: 0.5em 0.5em; } }
 
 #app #messages {
   list-style-type: none;
@@ -4095,6 +4099,9 @@ blockquote:before {
 
 #app #messages li {
   padding: 0.5em; }
+  @media print, screen and (max-width: 750px) {
+    #app #messages li {
+      padding: 0.2em; } }
 
 #app #messages li:nth-child(odd) {
   background: #eee; }
@@ -4121,6 +4128,18 @@ blockquote:before {
   @media print, screen and (min-width: 751px) {
     #app .chatArea {
       box-sizing: content-box; } }
+  @media print, screen and (max-width: 750px) {
+    #app .chatArea {
+      top: 82vh;
+      width: 90%;
+      left: 5%;
+      height: 15vh; } }
+  @media only screen and (max-width: 750px) and (orientation: landscape) {
+    #app .chatArea {
+      width: 98%;
+      left: 1%;
+      height: 20vh;
+      top: 76.5vh; } }
 
 #app .username {
   font-size: 13px;
@@ -4141,6 +4160,13 @@ blockquote:before {
   border: 5px solid #2D9EE0;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.8); }
+  @media print, screen and (max-width: 750px) {
+    #app .getArea {
+      width: 60%;
+      border: 3px solid #2D9EE0; } }
+  @media only screen and (max-width: 750px) and (orientation: landscape) {
+    #app .getArea {
+      width: 30%; } }
   #app .getArea__ttl {
     text-align: center;
     font-weight: bold; }
@@ -4162,6 +4188,9 @@ blockquote:before {
   display: none; }
   #app .getImg img {
     opacity: 0; }
+  @media print, screen and (max-width: 750px) {
+    #app .getImg {
+      width: 60%; } }
 
 #app .radar {
   background: rgba(0, 0, 0, 0.8);
@@ -4170,6 +4199,14 @@ blockquote:before {
   top: 145px;
   border-radius: 10px;
   border: 5px solid #fff; }
+  @media print, screen and (max-width: 750px) {
+    #app .radar {
+      transform: scale(0.3);
+      transform-origin: top left;
+      top: 20%; } }
+  @media only screen and (max-width: 750px) and (orientation: landscape) {
+    #app .radar {
+      top: 34%; } }
   #app .radar.yellow .boder {
     animation: boder 2.5s linear 0s infinite normal none; }
   #app .radar.yellow .circle {

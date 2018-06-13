@@ -13,7 +13,11 @@ body {
     padding: 20px;
 	border-radius: 10px;
 	text-align: center;
-	font-weight: bold;
+  font-weight: bold;
+  @include sp{
+    width: 30%;
+    padding: 0.5em 0.5em;
+  }
 }
 
 #messages {
@@ -24,6 +28,9 @@ body {
 
 #messages li {
     padding: 0.5em;
+    @include sp{
+      padding: 0.2em;
+    }
 }
 
 #messages li:nth-child(odd) {
@@ -51,6 +58,18 @@ body {
     @include pc{
         box-sizing: content-box;
     }
+    @include sp{
+      top: 82vh;
+      width: 90%;
+      left: 5%;
+      height: 15vh;
+      @media only screen and (orientation: landscape) {
+        width: 98%;
+        left:1%;
+        height: 20vh;
+        top:76.5vh;
+      }
+    }
 }
 .username{
     font-size: 13px;
@@ -70,7 +89,14 @@ body {
 	padding: 10px;
 	border: 5px solid #2D9EE0;
 	border-radius: 10px;
-	background: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.8);
+  @include sp{
+    width: 60%;
+    border: 3px solid #2D9EE0;
+    @media only screen and (orientation: landscape) {
+      width: 30%;
+    }
+  }
 	&__ttl{
 		text-align: center;
 		font-weight: bold;
@@ -97,7 +123,10 @@ body {
 	display: none;
 	img{
 		opacity: 0;
-	}
+  }
+  @include sp{
+    width: 60%;
+  }
 }
 .radar{
 	background: rgba(0,0,0,0.8);
@@ -105,7 +134,15 @@ body {
 	left: 10px;
 	top:145px;
 	border-radius: 10px;
-	border: 5px solid #fff;
+  border: 5px solid #fff;
+  @include sp{
+    transform: scale(0.3);
+    transform-origin: top left;
+    top:20%;
+    @media only screen and (orientation: landscape) {
+      top:34%;
+    }
+  }
 	&.yellow{
 		.boder{
 			animation: boder 2.5s linear 0s infinite normal none;
