@@ -63,6 +63,12 @@
 			<a-obj-model id="pengin1" class="link pengin" src="#pengin-obj" mtl="#pengin-mtl" position="-1.1026257326073614 -7.289398567811949 -6.262852532064665" rotation="0 9.678 0" scale="0 0 0">
 				<a-animation attribute="rotation" repeat="indefinite" direction="alternate" dur="500" from="0 0 0" to="0 10 0"></a-animation>
 			</a-obj-model>
+            <a-obj-model id="pengin2" class="link pengin" src="#pengin-obj" mtl="#pengin-mtl" position="-1.1026257326073614 -7.289398567811949 -6.262852532064665" rotation="0 9.678 0" scale="0 0 0">
+				<a-animation attribute="rotation" repeat="indefinite" direction="alternate" dur="500" from="0 0 0" to="0 10 0"></a-animation>
+			</a-obj-model>
+            <a-obj-model id="pengin3" class="link pengin" src="#pengin-obj" mtl="#pengin-mtl" position="-1.1026257326073614 -7.289398567811949 -6.262852532064665" rotation="0 9.678 0" scale="0 0 0">
+				<a-animation attribute="rotation" repeat="indefinite" direction="alternate" dur="500" from="0 0 0" to="0 10 0"></a-animation>
+			</a-obj-model>
             <!-- 360-どのいめーじ. -->
             <a-sky id="image-360" radius="10" src="#subway"></a-sky>
 
@@ -92,6 +98,8 @@
 				<li><img src="/img/pengin_off.png" alt="ペンギン"></li>
 			</ul>
 		</div>
+        <div class="LA_Downtown_Helipad_GoldenHour_8k">
+        </div>
 		<div class="radar">
 			<div class="wrap">
 			  <div class="boder"></div>
@@ -105,6 +113,9 @@
 		<div class="getImg">
 			<img src="/img/pengin_big.png" alt="つかまえた！！" class="animated">
 		</div>
+        <div class="complete">
+            <img src="/img/comp.png" alt="">
+        </div>
     </div>
     <script>
 		const socket = io();
@@ -143,10 +154,16 @@
 			if(current === "page05" && getPengin.indexOf("pengin1") == -1 ){
 				$('#pengin1').attr('scale',"3 3 3")
 				$('.radar').addClass('red');
+			}else if(current === "page03" && getPengin.indexOf("pengin2") == -1){
+				$('#pengin2').attr('scale',"3 3 3");
+				$('.radar').addClass('red');
+			}else if(current === "page06" && getPengin.indexOf("pengin3") == -1){
+				$('#pengin3').attr('scale',"3 3 3");
+				$('.radar').addClass('red');
 			}else{
-				$('#pengin1').attr('scale',"0 0 0");
+                $('#pengin1,#pengin2,#pengin3').attr('scale',"0 0 0");
 				$('.radar').removeClass('red');
-			}
+            }
 
 			//sio.jsに通知する
 			socket.emit('chat message', {

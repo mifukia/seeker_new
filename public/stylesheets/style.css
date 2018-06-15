@@ -4198,6 +4198,15 @@ blockquote:before {
     #app .getImg {
       width: 60%; } }
 
+#app .complete {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  display: none; }
+
 #app .radar {
   background: rgba(0, 0, 0, 0.8);
   position: fixed;
